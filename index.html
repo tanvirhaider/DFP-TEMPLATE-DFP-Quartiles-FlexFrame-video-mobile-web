@@ -1,0 +1,486 @@
+<!--[Template] DFP Quartiles Flex Frame: Video (Mobile)
+team: Platforms
+engineer: Tanvir Haider
+email: tanvir.haider@nytimes.com
+update date: 08.28.2019
+version: 1
+platform: mobile web
+-->
+
+<script type="text/javascript" src="mraid.js"></script>
+<script type="text/javascript" src="//fast.fonts.net/jsapi/4221a460-4ed2-4039-a07f-d1f4a2739cad.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+
+<div id="container" class="container">
+  <div class="flex-frame">
+    <div id="media-container" class="media-container">
+ <div id='cta' onclick="eventTracker.generalEventTrack('clickURL', 'cta', '%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%')" class="cta">[%CTA%]</div>
+      <div class="media-content">
+        <a target="_blank" href="%%CLICK_URL_UNESC%%%%DEST_URL%%">
+        <div id="title1" class="title">[%Headline%]</div>
+        <div class="summary">[%Summary%]</div>
+        </a>
+      </div>
+      <div class="tablet-action-item-logo">
+        <div class="logo">
+          <img onclick="eventTracker.generalEventTrack('clickURL', 'logo', '%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%')" class="logo-std" src="[%Logo%]" />
+          <img onclick="eventTracker.generalEventTrack('clickURL', 'logo', '%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%')" class="logo-hi-res" src="[%LogoHiRes%]"/>
+        </div>
+      </div>
+        
+      <div class="video video-content">
+      #%NATIVE_VIDEO_WRAPPER%# 
+      </div>
+      
+      <div class="video-cover"></div>  
+      <div class="gradient"></div>
+     <div class="img-container">
+    </div>
+  </div>
+  <canvas class="js-canvas"></canvas> 
+</div>
+<div>
+ 
+
+<!-- Native video code -->
+
+<script type="text/javascript">
+
+var playBtn, pauseBtn, volumeOff, video, replay, adVideo, cta, flexframe; 
+
+video = document.querySelector('video');
+replay = document.querySelector("img[src='https://www.gstatic.com/dfp/native/replay.png']"); 
+adVideo = document.getElementsByClassName('ad-video')[0];
+playBtn = document.querySelector("img[src='https://www.gstatic.com/dfp/native/play.png']"); 
+volumeOff = document.querySelector("img[src='https://www.gstatic.com/dfp/native/volume_off.png']"); 
+pauseBtn = document.querySelector("img[src='https://www.gstatic.com/dfp/native/pause.png']"); 
+cta = document.getElementsByClassName('cta')[0]; 
+flexframe = document.getElementsByClassName('flex-frame')[0]; 
+
+pauseBtn.style.left = "15px"; 
+volumeOff.style.left = "48px";
+
+video.addEventListener('play', function(){
+document.getElementsByClassName("title")[0].style.display = "none"; 
+document.getElementsByClassName("summary")[0].style.display = "none";
+document.getElementsByClassName('cta')[0].style.display = "inline-block"; 
+document.getElementsByClassName('video-cover')[0].style.background = "none";
+});
+
+video.addEventListener('ended', function(){
+document.getElementsByClassName("title")[0].style.display = "block"; 
+document.getElementsByClassName("summary")[0].style.display = "block";  
+document.getElementsByClassName('cta')[0].style.display = "none"; 
+document.getElementsByClassName('video-cover')[0].style.background = "linear-gradient(to bottom, rgba(0,0,0,0) 40%,rgba(0,0,0,0.8) 100%)";
+});
+
+// adding some additional event listeners
+
+video.addEventListener ("pause", function(){
+  console.log("video is in pause state ------");
+});
+
+video.addEventListener ("playing", function(){
+  console.log("video is in play state ------");
+});
+
+video.addEventListener ("waiting", function(){
+  console.log("video is in waiting state ------");
+});
+
+video.addEventListener ("abort", function(){
+  console.log("video is in abort state ------");
+});
+
+video.addEventListener ("emptied", function(){
+  console.log("video is in emptied state ------");
+});
+
+video.addEventListener ("error", function(){
+  console.log("video is in error state ------");
+});
+
+video.addEventListener ("suspend", function(){
+  console.log("video is in suspend state ------");
+});
+
+// video.addEventListener ("stalled", function(){
+//   console.log("video is in stalled state ------");
+//   browserautoplayfix ();
+// });
+
+var playBtnImg;
+
+
+function browserautoplayfix () {
+  document.getElementsByClassName('cta')[0].style.display = "none"; 
+  document.getElementById("thumbnail-click-to-play").style.display = 'none';
+	var advid = document.getElementById("google-native-video");
+ 	var numberOfChild = advid.childElementCount;
+ 	var nuImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAU5JREFUeNpiZGBgaGAYxICJYZCDUQeOOnDUgaMOHHXgqAMpA8xA7ECqpu3bt7tzc3P/PXv27IdBGYLKysoSM2fOjL9161a8hYWFwKCNYlVVVYXjx4/nHzlyxF9OTo5j0KZBa2trg5s3b+avWrXKgdoOpVom4QCC0NBQ+wsXLqR3d3cbDNpcLCgoKFBSUuL/9OnT9LS0NIVBW8xISUmBMxIwRMMpyUg0Lwf19fU1QBkJVDSRkz7pVlDr6ekpGBkZkRySLLR22Pv37z/MnTv3YGlp6QVy9NPMgT+AYPPmzSeBGebEo0ePfpBrDk0cePTo0QtRUVE7KXEYTRx4+/btB2VlZTs3bNjwglpmslArnVVUVGycNWvWA2rHBgul6WzKlCk7yc0ANHPgt2/ffqxevfogpRmAGMDIMDo2M+rAUQeOOnDUgaMOHHXgQAKAAAMA2nV5EhcPRJ0AAAAASUVORK5CYII=";
+	
+
+	for (var i = 0; i < numberOfChild; i++) {
+	    var currentItem = adVideo.children[i];
+	    
+	    try {
+	          if (currentItem.src == "https://www.gstatic.com/images/icons/material/system/2x/play_circle_filled_white_googblue_48dp.png")
+	    {
+        
+        var newplaybutton = document.createElement("div");
+        newplaybutton.style.position = "absolute";
+        newplaybutton.style.top = "0px";
+        newplaybutton.style.bottom = "0px";
+        newplaybutton.style.left = "0px";
+        newplaybutton.style.right = "0px";
+				newplaybutton.style.width = "40px";
+				newplaybutton.style.height = "40px";
+        newplaybutton.style.zIndex = "999";
+        
+        newplaybutton.style.margin = "auto";
+        newplaybutton.style.backgroundImage = "url('"+ nuImg +"')";
+        newplaybutton.style.backgroundPosition = "50% 50%";
+        newplaybutton.style.backgroundSize = "contain";
+
+
+				adVideo.appendChild(newplaybutton);
+        newplaybutton.addEventListener("click", function() {
+          video.play();
+          video.volume = 1;
+          newplaybutton.style.display = "none";
+        });
+
+                
+	      console.log(i, "found it ", currentItem);
+        console.log("version 6");
+        //playBtnImg = currentItem;
+	      //currentItem.style.width = "40px";
+	      //currentItem.style.height = "40px";
+	      //currentItem.style.top = "0px !important";
+      	//currentItem.style.bottom = "0px !important";
+      	//currentItem.style.left = "0px !important";
+      	//currentItem.style.right = "0px !important";
+	      //currentItem.style.margin = "auto";
+	      //currentItem.src = nuImg;
+        currentItem.style.display = "none"
+        console.log(currentItem);
+
+
+   
+	      break;
+	      
+	    }
+	    }
+	    catch (Error) {}
+	  }
+}
+
+
+
+  setTimeout(function(){ 
+  	console.log("timer for the ad fix applied");
+  	try {
+  		browserautoplayfix ();
+  	}
+  	catch (Error) {}
+
+  }, 250);
+
+
+
+
+
+function videoControles() {
+pauseBtn.style.width = "30px";
+pauseBtn.style.height = "30px";
+volumeOff.style.width = "30px";
+volumeOff.style.height = "30px";
+volumeOff.style.left = "54px";
+replay.style.width = "30px";
+replay.style.height ="30px";
+}
+
+videoControles();
+
+// To address the letter-box on Small devices 
+var VideoSize = [%VideoSize%];
+
+function nativeSmallDeviceHeight(){
+media = window.matchMedia("(max-width: 349px)")
+    if (media.matches && VideoSize === "1x1"){
+        pauseBtn.style.bottom = "-29px";
+        volumeOff.style.bottom = "-29px";
+        video.style.width = "380px";
+        video.style.height = "380px";  
+    }
+}
+setInterval(nativeSmallDeviceHeight, 50);
+
+// To address the letter-box on Medium devices 
+function nativeMediumDeviceHeight(){
+media = window.matchMedia("(max-width: 375px) and (min-width: 350px)");
+    if (media.matches && VideoSize === "1x1"){
+        video.style.width = "380px";
+        video.style.height = "380px";
+        pauseBtn.style.bottom = "19px";
+        volumeOff.style.bottom = "19px";
+    }
+}
+setInterval(nativeMediumDeviceHeight, 50);
+
+// To address the letter-box on Large devices 
+function nativeLargeDeviceHeight(){
+media = window.matchMedia("(min-width: 376px)");
+    if (media.matches && VideoSize === "1x1"){
+        pauseBtn.style.bottom = "24px";
+        volumeOff.style.bottom = "24px";
+        video.style.height = "unset";
+        video.style.width = "414px";
+        adVideo.style.margin = "unset";
+    }
+}
+setInterval(nativeLargeDeviceHeight, 50);
+
+//For 16:9 or 1x1
+var VideoSize = [%VideoSize%];
+function runSIXnine(){
+   if (VideoSize === "16x9") {
+        styles();
+        video.onended = myFunction;
+    } else if (VideoSize === "1x1"){
+      video.onended = myFunction;
+      styleReplay();
+      flexframe.style.border = "unset";
+
+     }
+}
+
+// STYLES 
+// to adjust the replay button on large viewports 
+function styleReplay(){
+    mediaLarg = window.matchMedia("(min-width: 376px)");
+    mediaMedium = window.matchMedia("(max-width: 375px)");
+    if (mediaLarg.matches && VideoSize === "1x1"){
+        replay.style.right = "0px";
+        replay.style.top =  "20px"; 
+        replay.style.left ="auto";
+   } else if (mediaMedium.matches && VideoSize === "1x1") {
+        replay.style.right = "20px";
+        replay.style.top =  "20px"; 
+        replay.style.left ="auto";
+   } 
+}
+
+function styles(){
+  replay.style.top =  "-59px"; 
+  replay.style.right = "20px";
+  replay.style.left ="auto";
+  adVideo.style.top = "50%";
+  adVideo.style.bottom = "50%";
+  adVideo.style.position = "absolute";
+} 
+
+// For the cover 
+function myFunction() {
+	setInterval(function(){  
+        media = window.matchMedia("(min-width: 568px)"); 
+		try {
+			var cover = document.querySelectorAll("#video-thumbnail-image");
+            
+            for (var i=0; i<cover.length; i++) {
+
+                if (media.matches && VideoSize === "1x1"){
+                    cover[i].style.left = "unset";
+                    cover[i].style.zIndex = "0";
+			        cover[i].style.width = "auto";
+                    cover[i].style.height = "100%";
+		            cover[i].style.position = "relative";
+                    cover[i].style.top = "0px";
+                    adVideo.style.margin = "unset";
+                    
+                } else if (media.matches && VideoSize === "16x9") {
+                    cover[i].style.left = "unset";
+			        cover[i].style.width = "auto";
+                    cover[i].style.height = "100%";
+		            cover[i].style.position = "fixed";
+                    cover[i].style.top = "0px";
+
+                } else {
+                    cover[i].style.left = "unset";
+                    cover[i].style.zIndex = "0";
+			        cover[i].style.width = "auto";
+                    cover[i].style.height = "100%";
+			        cover[i].style.position = "fixed";
+                    cover[i].style.top = "0px"; 
+                }
+		     }
+          }
+		    catch(Error) {
+			console.error("this is the try error " + Error);
+		}	
+	}, 0);
+}
+
+setInterval(runSIXnine, 50);
+
+// End of Native video code //
+
+// Native Tracking Code --------------------------------------------- //
+
+var eventTracker = function () {
+var ETLink = "https://et.nytimes.com/?subject=dfp-ad-events&dfp_creativeid=%ecid!&dfp_lineitemid=%eaid!&dfp_orderid=%ebuy!&dfp_viewport=%%PATTERN:vp%%&pageviewid=%%PATTERN:page_view_id%%&dfp_pos=%%PATTERN:pos%%&dfp_prop=%%PATTERN:prop%%";
+
+var slideCSSClass = "slide";
+var slideNavType = "slideURL";
+var slideClickType = "clickURL";
+
+//Slide navigation control
+var slidesNum = document.getElementsByClassName(slideCSSClass).length;
+var currentSlide = 1;
+
+/*
+* function to call the Nytimes ET pixel link for the slide templte
+* @param curr - current slide
+* @param type - event type 
+*/
+var ETSlideCall = function ETSlideCall(type, curr) {
+var next = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+var trackingLink = ETLink + "&dfp_event_type=" + type + "&dfp_event_location=slide-" + curr;
+if (next != "") {
+trackingLink += "_" + "slide-" + next;
+}
+document.createElement('img').src = trackingLink;
+};
+//Public functions
+return {
+/*
+*Next slide function - Updates the current slide and call the ET function
+*/
+nextSlideET: function nextSlideET() {
+var prevSlide = currentSlide;
+if (currentSlide >= slidesNum) {
+currentSlide = 1;
+} else {
+currentSlide++;
+}
+ETSlideCall(slideNavType, prevSlide, currentSlide);
+},
+
+/*
+* Previous slide function - Updates the current slide and call the ET function
+*/
+prevSlideET: function prevSlideET() {
+var prevSlide = currentSlide;
+if (currentSlide <= 1) {
+currentSlide = slidesNum;
+} else {
+currentSlide--;
+}
+ETSlideCall(slideNavType, prevSlide, currentSlide);
+},
+
+/*
+* Click slide function - Redirects to target url
+* @param tag - HTML anchor tag the called this func. 
+* @param next - sums up to the current slide number 
+* usage: <a href="link-to-the-ad-redirect" onclick="eventTracker.slideClickET(this)">
+*/
+slideClickET: function slideClickET(tag) {
+var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+// console.log("this", tag);
+event.preventDefault();
+var slideTrack = currentSlide;
+if (next) {
+slideTrack = currentSlide == slidesNum ? 1 : currentSlide + 1;
+}
+ETSlideCall(slideClickType, slideTrack);
+var url = tag.href;
+window.open(url, '_blank');
+},
+
+/*
+* General event tracker call
+* @param eventType - event type to be tracked
+* @param eventLocation - event location to be tracked
+* @param redirectLink - Link to ad page to be called after eventtracker
+*/
+
+generalEventTrack: function generalEventTrack(type, curr) {
+var redirectLink = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+event.preventDefault();
+var trackingLink = ETLink + "&dfp_event_type=" + type + "&dfp_event_location=" + curr;
+document.createElement('img').src = trackingLink;
+if (redirectLink != "") {
+window.open(redirectLink, '_blank');
+}
+  
+  parent.postMessage({
+  event: 'send-direct',
+  payload: {
+    dfp_creativeid: '%ecid!',
+    dfp_orderid: '%ebuy!',
+    dfp_viewport: '%%PATTERN:vp%%',
+    dfp_pos: '%%PATTERN:pos%%',
+    dfp_prop: '%%PATTERN:prop%%',
+    dfp_event_type: type,
+    dfp_event_location: curr,
+    subject: 'dfp-ad-events'
+  }
+},		
+'https://www.nytimes.com/'
+);
+  
+},
+
+
+setETLink: function setETLink(link) {
+ETLink = link;
+},
+
+setSlideCSSClass: function setSlideCSSClass(cssClass) {
+slideCSSClass = cssClass;
+slidesNum = document.getElementsByClassName(slideCSSClass).length;
+},
+setSlideClicktype: function setSlideClicktype(type) {
+slideClickType = type;
+},
+
+setSlideNavType: function setSlideNavType(type) {
+slideNavType = type;
+}
+};
+}();
+
+
+
+
+</script>
+
+<script type="text/javascript">
+(function() {
+// Hide gradient if necessary
+var toggleGradient = [%ToggleGradient%];
+var gradients = [].slice.call(document.getElementsByClassName('gradient'));
+if (toggleGradient > 0) {
+  gradients.forEach(function(el) {
+    el.style.display = 'none';
+  });
+}
+})();
+</script>
+<div style="display: none;">
+[%CustomTracking%]
+</div>
+<div id="impression-pixel" class="impression-tracker">
+  <img src="[%ImpressionPixel%]" width="1" height="1" border="0" />
+</div>
+<div id="impression-pixel-2" class="impression-tracker">
+  <img src="[%ImpressionPixel2%]" width="1" height="1" border="0" />
+</div>
+<script type="text/javascript">
+parent.postMessage({exclusive: [%Exclusivity%], type: '[%ExclusivityType%]', div:'%%PATTERN:div%%'},'*');
+</script>
