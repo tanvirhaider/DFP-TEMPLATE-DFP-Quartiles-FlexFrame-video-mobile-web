@@ -3,10 +3,13 @@ team: Platforms
 engineer: Tanvir Haider
 email: tanvir.haider@nytimes.com
 update date: 08.28.2019
-version: 1
+version: 2
 platform: mobile web
 repo: https://github.com/tanvirhaider/DFP-TEMPLATE-DFP-Quartiles-FlexFrame-video-mobile-web
 -->
+<script>
+  console.log("debugV: ",2);
+</script>
 
 <script type="text/javascript" src="mraid.js"></script>
 <script type="text/javascript" src="//fast.fonts.net/jsapi/4221a460-4ed2-4039-a07f-d1f4a2739cad.js"></script>
@@ -189,9 +192,6 @@ function browserautoplayfix () {
   }, 250);
 
 
-
-
-
 function videoControles() {
 pauseBtn.style.width = "30px";
 pauseBtn.style.height = "30px";
@@ -212,8 +212,11 @@ media = window.matchMedia("(max-width: 349px)")
     if (media.matches && VideoSize === "1x1"){
         pauseBtn.style.bottom = "-29px";
         volumeOff.style.bottom = "-29px";
-        video.style.width = "380px";
+       // video.style.width = "380px";
+        video.style.width = "100%";
         video.style.height = "380px";  
+        video.style.objectFit = "cover";
+
     }
 }
 setInterval(nativeSmallDeviceHeight, 50);
